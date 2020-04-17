@@ -41,7 +41,7 @@ function validatePost() {
       });
     }
 
-    if (!req.body.message) {
+    if (!req.body.text) {
       return res.status(400).json({
         message: "missing required text field"
       });
