@@ -1,0 +1,1 @@
+"use strict";var express=require("express"),posts=require("../posts/postDb"),router=express.Router();function validatePostId(e,t,r){}router.get("/",function(e,t){}),router.get("/:id",function(e,t){}),router.delete("/:id",function(e,t){}),router.put("/:id",function(e,t){}),module.exports=router;

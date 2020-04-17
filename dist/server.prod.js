@@ -1,0 +1,1 @@
+"use strict";var express=require("express"),server=express();function logger(e,r,o){console.log("[".concat((new Date).toISOString(),"] ").concat(e.method," to ").concat(e.url," from ").concat(e.get("Origin"))),o()}server.use(logger),server.get("/",function(e,r){r.send("<h2>Let's write some middleware!</h2>")}),module.exports=server;
