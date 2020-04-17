@@ -3,30 +3,24 @@ const cors = require("cors");
 
 const users = require("../users/userDb");
 const router = express.Router();
-// This handles the route `GET /users`
-router.get("/", (req, res) => {
-  // these options are supported by the `users.find` method,
-  // so we get them from the query string and pass them through.
-  const options = {
-    // query string names are CASE SENSITIVE,
-    // so req.query.sortBy is NOT the same as req.query.sortby
-    sortBy: req.query.sortBy,
-    limit: req.query.limit,
-  };
 
-  users
-    .find(options)
-    .then((users) => {
-      res.status(200).json(users);
-    })
-    .catch((error) => {
-      // calling `next` with a parameter will skip down the middleware stack
-      // to the error middleware defined in `index.js`. Any parameter that's
-      // passed to next is considered an error. Calling `next()` without a
-      // parameter will simply move to the next piece of middleware.
-      next(error);
-    });
-});
+
+function validatePost() {
+  return (req, res, next) => {
+    if (!req.body) {
+      return res.status(400).json({
+        message: "missing post data"
+      });
+    }
+    
+    if (!req.body.text) {
+      return res.status(400).json({
+        message: "missing required text field"
+      });
+      
+    }
+  };
+}
 
 function validateUserId() {
   return (req, res, next) => {
@@ -69,6 +63,33 @@ function validateUser() {
     next();
   };
 }
+
+
+// This handles the route `GET /users`
+router.get("/", (req, res) => {
+  // these options are supported by the `users.find` method,
+  // so we get them from the query string and pass them through.
+  const options = {
+    // query string names are CASE SENSITIVE,
+    // so req.query.sortBy is NOT the same as req.query.sortby
+    sortBy: req.query.sortBy,
+    limit: req.query.limit,
+  };
+
+  users
+    .find(options)
+    .then((users) => {
+      res.status(200).json(users);
+    })
+    .catch((error) => {
+      // calling `next` with a parameter will skip down the middleware stack
+      // to the error middleware defined in `index.js`. Any parameter that's
+      // passed to next is considered an error. Calling `next()` without a
+      // parameter will simply move to the next piece of middleware.
+      next(error);
+    });
+});
+
 // This handles the route `GET /users/:id`
 router.get("/:id", validateUserId(), (req, res) => {
   res.status(200).json(req.user);
@@ -146,7 +167,7 @@ router.get("/:id/posts/:postId", validateUserId(), (req, res) => {
     });
 });
 
-router.post("/:id/posts", validateUserId(), (req, res) => {
+router.post("/:id/posts", validateUserId(),validatePost(), (req, res) => {
   if (!req.body.text) {
     // Make sure you have a return statement, otherwise the
     // function will continue running and you'll see ERR_HTTP_HEADERS_SENT
@@ -155,17 +176,7 @@ router.post("/:id/posts", validateUserId(), (req, res) => {
     });
   }
 
-  function validatePost() {
-    return (req, res, next) => {
-      if (!req.body) {
-        return res.status(400).json({
-          message: "missing post data",
-        });
-      } else if (!req.body.text) {
-        message: "missing required text field";
-      }
-    };
-  }
+  
   
 });
 

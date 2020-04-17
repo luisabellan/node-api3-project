@@ -3,7 +3,22 @@ const cors = require("cors");
 const posts = require('../posts/postDb');
 
 const router = express.Router();
-
+function validatePost() {
+  return (req, res, next) => {
+    if (!req.body) {
+      return res.status(400).json({
+        message: "missing post data"
+      });
+    }
+    
+    if (!req.body.text) {
+      return res.status(400).json({
+        message: "missing required text field"
+      });
+      
+    }
+  };
+}
 /* 
 router.post("", (req, res) => {
   if (!req.body.title || !req.body.contents) {
@@ -64,9 +79,10 @@ router.post("/:id/comments", (req, res) => {
   }
 });
  */
+
 router.get("", (req, res) => {
   posts
-    .find()
+    .get()
 
     .then((posts) => {
       res.status(200).json(posts);
