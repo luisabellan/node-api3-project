@@ -139,8 +139,8 @@ router.get("/:id", (req, res) => {
 }); */
 
 router.delete("/:id", (req, res) => {
-  posts.findById(req.params.id).then((post) => {
-    if (post.length === 0) {
+  posts.remove(req.params.id).then((post) => {
+    if (!res.body) {
       return res.status(404).json({
         message: "The post with the specified ID does not exist.",
       });
