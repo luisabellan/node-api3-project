@@ -96,12 +96,12 @@ router.get("", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  console.log(posts)
+  //console.log(posts)
   posts
     .getById(req.params.id)
     .then((post) => {
-       console.log(typeof(post));
-      if (!res.body) {
+       //console.log(typeof(post));
+      if (!post) {
         return res.status(404).json({
           message: "The post with the specified ID does not exist.",
         });

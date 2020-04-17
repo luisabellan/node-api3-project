@@ -9,7 +9,7 @@ server.get('/', function (req, res) {
 }); //custom middleware
 
 function logger(req, res, next) {
-  console.log("[".concat(new Date().toISOString(), "] ").concat(req.method, " to ").concat(req.url, " from ").concat(req.get('Origin')));
+  console.log("[".concat(new Date().toISOString(), "] ").concat(req.method, " to ").concat(req.url, " \n    )}"));
   next();
 }
 
