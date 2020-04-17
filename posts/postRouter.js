@@ -47,7 +47,7 @@ function validatePost() {
     }
   };
 }
-/* 
+
 router.post("", (req, res) => {
   if (!req.body.title || !req.body.contents) {
     return res.status(400).json({
@@ -106,7 +106,7 @@ router.post("/:id/comments", (req, res) => {
     });
   }
 });
- */
+ 
 
 router.get("", (req, res) => {
   posts

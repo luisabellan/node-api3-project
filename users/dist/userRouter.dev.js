@@ -65,7 +65,7 @@ function validateUser() {
 
 
 router.get("/", function (req, res) {
-  // these options are supported by the `users.find` method,
+  // these options are supported by the `users.get` method,
   // so we get them from the query string and pass them through.
   var options = {
     // query string names are CASE SENSITIVE,
@@ -73,7 +73,7 @@ router.get("/", function (req, res) {
     sortBy: req.query.sortBy,
     limit: req.query.limit
   };
-  users.find(options).then(function (users) {
+  users.get(options).then(function (users) {
     res.status(200).json(users);
   })["catch"](function (error) {
     // calling `next` with a parameter will skip down the middleware stack

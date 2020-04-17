@@ -67,7 +67,7 @@ function validateUser() {
 
 // This handles the route `GET /users`
 router.get("/", (req, res) => {
-  // these options are supported by the `users.find` method,
+  // these options are supported by the `users.get` method,
   // so we get them from the query string and pass them through.
   const options = {
     // query string names are CASE SENSITIVE,
@@ -77,7 +77,7 @@ router.get("/", (req, res) => {
   };
 
   users
-    .find(options)
+    .get(options)
     .then((users) => {
       res.status(200).json(users);
     })
