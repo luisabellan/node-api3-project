@@ -1,12 +1,14 @@
 "use strict";
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 var express = require('express');
 
 var cors = require("cors");
 
-var posts = require('../posts/postDb');
-
 var router = express.Router();
+
+var posts = require('../posts/postDb');
 
 function validatePost() {
   return function (req, res, next) {
@@ -96,9 +98,11 @@ router.get("", function (req, res) {
   });
 });
 router.get("/:id", function (req, res) {
-  posts.findById(req.params.id).then(function (post) {
-    // console.log(post);
-    if (post.length === 0) {
+  console.log(posts);
+  posts.getById(req.params.id).then(function (post) {
+    console.log(_typeof(post));
+
+    if (!res.body) {
       return res.status(404).json({
         message: "The post with the specified ID does not exist."
       });

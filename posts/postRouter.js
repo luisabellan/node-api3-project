@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require("cors");
-const posts = require('../posts/postDb');
 
 const router = express.Router();
+const posts = require('../posts/postDb');
 function validatePost() {
   return (req, res, next) => {
     if (!req.body) {
@@ -96,11 +96,12 @@ router.get("", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
+  console.log(posts)
   posts
-    .findById(req.params.id)
+    .getById(req.params.id)
     .then((post) => {
-      // console.log(post);
-      if (post.length === 0) {
+       console.log(typeof(post));
+      if (!res.body) {
         return res.status(404).json({
           message: "The post with the specified ID does not exist.",
         });
