@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 
 const users = require("../users/userDb");
-
 const router = express.Router();
 // This handles the route `GET /users`
 router.get("/", (req, res) => {
