@@ -2,6 +2,8 @@
 
 var express = require('express');
 
+var cors = require("cors");
+
 var posts = require("../posts/postDb");
 
 var router = express.Router();

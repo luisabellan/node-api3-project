@@ -1,7 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 // const morgan = require("morgan")
-const logger = require("./middleware/logger")
+const logger = require("./server")
 const postRouter = require('./posts/postRouter')
 const userRouter = require('./users/userRouter')
 
@@ -10,15 +10,15 @@ const port = 4000
 
 server.use(express.json())
 server.use(cors())
-server.use(logger({ format: "long" }))
+
 
 const router = express.Router()
 
 
 
 
-server.use('/users', userRouter)
-server.use('/posts', postRouter)
+server.use('/users', logger, userRouter)
+server.use('/posts', logger, postRouter)
 // this middleware function will only run if no route is found.
 // routes never call `next()`, so if a route is found, this never runs.
 server.use((req, res) => {
